@@ -23,6 +23,7 @@ const deleteFromcart=()=>{
   return (
     <Layout>
       <div className="flex gap-5 p-5">
+        <h1>pratap</h1>
         <button className="bg-gray-300" onClick={()=>addCart()}>add</button>
         <button className="bg-gray-300" onClick={()=>deleteFromcart()}>delete</button>
       </div>
