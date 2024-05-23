@@ -1,8 +1,12 @@
+
+
+
 import React, { useContext } from 'react'
 import {FaUserTie } from 'react-icons/fa';
 import Mycontext from '../../../context/data/Mycontext';
 import Layout from '../../../components/layout/Layout';
-import DashboardTab from '../dashboard/DashboardTab'
+import DashboardTab from './DashboardTab';
+
 function Dashboard() {
     const context = useContext(Mycontext)
     const { mode} = context
@@ -49,7 +53,6 @@ function Dashboard() {
                     </div>
                 </div>
             </div>
-            {/* import dashboardTab */}
             <DashboardTab/>
         </section>
     </Layout>

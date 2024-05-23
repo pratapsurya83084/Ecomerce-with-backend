@@ -3,7 +3,7 @@ import Mycontext from "../../../../context/data/Mycontext";
 
 function AddProduct() {
     const context = useContext(Mycontext);
-    const { products,setproducts,addProduct } = context;
+    const { products,setProducts,addProduct } = context;
    
     return (
         <div>
@@ -16,7 +16,7 @@ function AddProduct() {
                         <input type="text"
                             name='title'
                             value={products.title}
-                            onChange={(e)=>setproducts({...products,title:e.target.value})}
+                            onChange={(e)=>setProducts({...products,title:e.target.value})}
                             className=' bg-gray-600 mb-4 px-2 py-2 w-full lg:w-[20em] rounded-lg text-white placeholder:text-gray-200 outline-none'
                             placeholder='Product title'
                         />
@@ -25,7 +25,7 @@ function AddProduct() {
                         <input type="text"
                             name='price'
                             value={products.price}
-                            onChange={(e)=>setproducts({...products,price:e.target.value})}
+                            onChange={(e)=>setProducts({...products,price:e.target.value})}
                             className=' bg-gray-600 mb-4 px-2 py-2 w-full lg:w-[20em] rounded-lg text-white placeholder:text-gray-200 outline-none'
                             placeholder='Product price'
                         />
@@ -34,7 +34,7 @@ function AddProduct() {
                         <input type="text"
                             name='imageurl'
                             value={products.imageUrl}
-                            onChange={(e)=>setproducts({...products,imageUrl:e.target.value})}
+                            onChange={(e)=>setProducts({...products,imageUrl:e.target.value})}
                             className=' bg-gray-600 mb-4 px-2 py-2 w-full lg:w-[20em] rounded-lg text-white placeholder:text-gray-200 outline-none'
                             placeholder='Product imageUrl'
                         />
@@ -43,7 +43,7 @@ function AddProduct() {
                         <input type="text"
                             name='category'
                             value={products.category}
-                            onChange={(e)=>setproducts({...products,category:e.target.value})}
+                            onChange={(e)=>setProducts({...products,category:e.target.value})}
                             className=' bg-gray-600 mb-4 px-2 py-2 w-full lg:w-[20em] rounded-lg text-white placeholder:text-gray-200 outline-none'
                             placeholder='Product category'
                         />
@@ -51,7 +51,7 @@ function AddProduct() {
                     <div>
                        <textarea cols="30" rows="10" name='title'
                         value={products.description}
-                        onChange={(e)=>setproducts({...products,description:e.target.value})}
+                        onChange={(e)=>setProducts({...products,description:e.target.value})}
                             className=' bg-gray-600 mb-4 px-2 py-2 w-full lg:w-[20em] rounded-lg text-white placeholder:text-gray-200 outline-none'
                             placeholder='Product description'>
 
