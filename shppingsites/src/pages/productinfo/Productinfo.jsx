@@ -3,21 +3,37 @@ import Layout from "../../components/layout/Layout";
 
 function Productinfo() {
   const [items, setItems] = useState([]);
-  console.log(items);
+  // console.log(items);
+  // useEffect(() => {
+  //   const getCartProduct = localStorage.getItem("cart");
+  //   if (getCartProduct) {
+  //     // Assuming your cart data is stored as JSON string in localStorage
+  //     setItems(JSON.parse(getCartProduct));
+  //   }
+  // }, []);
+
+
   useEffect(() => {
     const getCartProduct = localStorage.getItem("cart");
-    if (getCartProduct) {
-      // Assuming your cart data is stored as JSON string in localStorage
-      setItems(JSON.parse(getCartProduct));
+    try {
+      if (getCartProduct) {
+        setItems(JSON.parse(getCartProduct));
+      }
+    } catch (error) {
+      console.error("Error parsing cart data:", error);
     }
   }, []);
+
   // console.log(getcartproduct);
   return (
     // layout is similar to the Outlet
     <Layout>
       {items.map((val, i) => {
         return (
-          <section key={i} className="text-gray-600 body-font overflow-hidden px-10 md:flex justify-center  py-32 mx-auto">
+          <section
+            key={i}
+            className="text-gray-600 body-font overflow-hidden px-10 md:flex justify-center  py-32 mx-auto"
+          >
             <img
               alt="ecommerce"
               className="lg:w-1/4 w-full lg:ml-36 lg:h-full   h-full object-cover object-center rounded"
@@ -27,9 +43,8 @@ function Productinfo() {
               {/* image product */}
               <div className="lg:w-4/5 mx-auto flex flex-wrap">
                 <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
-                 
                   <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">
-                  {val.title}
+                    {val.title}
                   </h1>
                   <div className="flex mb-4">
                     <span className="flex items-center">
@@ -130,13 +145,12 @@ function Productinfo() {
                     </span>
                   </div>
                   <p className="leading-relaxed border-b-2 mb-5 pb-5">
-                    
                     {val.description}
                   </p>
 
                   <div className="flex">
                     <span className="title-font font-medium text-2xl text-gray-900">
-                     RS. {val.price}  <br />
+                      RS. {val.price} <br />
                       <span className="text-gray-400">20% Discount</span>
                     </span>
                     <button className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">
@@ -171,39 +185,3 @@ function Productinfo() {
 }
 
 export default Productinfo;
-
-// import React, { useEffect, useState } from "react";
-// import Layout from "../../components/layout/Layout";
-
-// function Productinfo() {
-//   const [items, setItems] = useState([]);
-// console.log(items);
-//   useEffect(() => {
-//     const getCartProduct = localStorage.getItem("cart");
-//     if (getCartProduct) {
-//       // Assuming your cart data is stored as JSON string in localStorage
-//       setItems(JSON.parse(getCartProduct));
-//     }
-//   }, []);
-
-//   return (
-//     <Layout>
-//       {items.map((item, i) => (
-//         <section key={i} className="text-gray-600 body-font overflow-hidden">
-//           <div className="container px-5 py-32 mx-auto">
-//             <div className="lg:w-4/5 mx-auto flex flex-wrap">
-//               {/* Your item display code goes here */}
-//               <img
-//                 alt="ecommerce"
-//                 className="lg:w-1/2 w-full lg:h-56 h-46 object-cover object-center rounded"
-//                 src={item.imageUrl}
-//               />
-//             </div>
-//           </div>
-//         </section>
-//       ))}
-//     </Layout>
-//   );
-// }
-
-// export default Productinfo;
