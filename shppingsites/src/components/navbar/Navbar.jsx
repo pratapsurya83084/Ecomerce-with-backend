@@ -77,19 +77,7 @@ const Navbar = () => {
                 </div>
 
                 <div className="ml-auto flex items-center">
-                  {/* toggle buttons*/}
-                  {/* <div className="flex lg:ml-6">
-                  <button className="" onClick={toggleMode}>
-                    <MdDarkMode size={35} style={{ color: mode === 'dark' ? 'white' : '' }} />
-                     {mode === "light" ? (
-                      <FiSun className="" size={30} />
-                    ) : "dark" ? (
-                      <BsFillCloudSunFill size={30} />
-                    ) : (
-                      ""
-                    )}
-                  </button>
-                </div> */}
+               
                 </div>
                     
                 <div className="border-t border-gray-200 px-4 py-6">
@@ -118,7 +106,7 @@ const Navbar = () => {
                     "pratapsuryawanshi83084@gmail.com" ? (
                       <Link
                         to={"/dashboard"}
-                        className="m-2 my-2 block p-2 font-medium text-gray-900"
+                        className=" text-sm my-2 font-medium text-gray-700 cursor-pointer"
                         style={{ color: mode === "dark" ? "white" : "" }}
                       >
                         admin
