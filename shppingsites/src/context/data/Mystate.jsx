@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import Mycontext from "./Mycontext";
 import {
@@ -28,7 +27,7 @@ function myState(props) {
       document.body.style.backgroundColor = "white";
     }
   };
-   
+
   const [loading, setLoading] = useState(false);
 
   const [products, setProducts] = useState({
@@ -139,17 +138,20 @@ function myState(props) {
     }
   };
 
-//delete cancele order 
 
 const deleteOrder = async (order) => {
   try {
-    await deleteDoc(doc(fireDB, "order", order.id));
+    await deleteDoc(doc(fireDB, 'order', order.id));
     getOrderData();
   } catch (error) {
     console.log(error);
   }
 };
-  const [order, setOrder] = useState([]);
+useEffect(()=>{
+  getOrderData()
+},[])
+
+  const [order, setOrder] = useState();
 
   const getOrderData = async () => {
     setLoading(true);
@@ -161,15 +163,23 @@ const deleteOrder = async (order) => {
         setLoading(false);
       });
       setOrder(ordersArray);
-      // console.log(ordersArray); //who user orderd product ,so this data are hold in orderArray in array
+      //  console.log(ordersArray); //who user orderd product ,so this data are hold in orderArray in array
       setLoading(false);
     } catch (error) {
       console.log(error);
       setLoading(false);
     }
   };
+  //  console.log(order);
 
-  const [user, setUser] = useState([]);
+  useEffect(() => {
+    getProductData();
+    getOrderData();
+  }, []); // Rerun effect when order data changes
+
+
+
+  const [users, setUser] = useState([]);
 
   const getUserData = async () => {
     setLoading(true);
@@ -181,7 +191,7 @@ const deleteOrder = async (order) => {
         setLoading(false);
       });
       setUser(usersArray);
-      console.log(usersArray);
+      // console.log(usersArray);
       setLoading(false);
     } catch (error) {
       console.log(error);
@@ -190,7 +200,7 @@ const deleteOrder = async (order) => {
   };
 
   useEffect(() => {
-    getOrderData();
+    // getOrderData();
     getUserData();
   }, []);
 
@@ -213,15 +223,15 @@ const deleteOrder = async (order) => {
         updateProduct,
         deleteProduct,
         order,
-        user,
+        users,
         searchkey,
         setSearchkey,
         filterType,
         setFilterType,
         filterPrice,
         setFilterPrice,
-        deleteOrder
         
+        deleteOrder
       }}
     >
       {props.children}

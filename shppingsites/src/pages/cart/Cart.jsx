@@ -118,7 +118,7 @@ function Cart() {
 
     var pay = new window.Razorpay(options);
     pay.open();
-    console.log(pay);
+    // console.log(pay);
   };
   return (
     <Layout>

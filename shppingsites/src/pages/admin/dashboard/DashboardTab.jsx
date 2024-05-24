@@ -7,13 +7,61 @@ import { AiFillShopping, AiFillPlusCircle, AiFillDelete } from "react-icons/ai";
 import { Link, json } from "react-router-dom";
 function DashboardTab() {
   const userid = JSON.parse(localStorage.getItem("user")).user.uid;
-  const useremail = JSON.parse(localStorage.getItem("user"));
-
-  const phoneNumber = localStorage.getItem("rzp_checkout_user_id");
-  const paymentId = localStorage.getItem("rzp_checkout_anon_id");
+  // const userid = JSON.parse(localStorage.getItem("user")).user.uid;
+  // console.log(userid);
   const context = useContext(Mycontext);
-  const { mode, product, edithandel, UpdateProduct, deleteProduct, order } =
-    context;
+  const {
+    mode,
+    edithandel,
+    product,
+    loading,
+    UpdateProduct,
+    order,
+    users,
+    deleteProduct,
+    deleteOrder,
+  } = context;
+  console.log(users);
+
+  const paymentId = localStorage.getItem("rzp_checkout_anon_id");
+
+  // Assuming the array is named 'data'
+
+  // order &&
+  //   order.map((entry, index) => {
+  //     console.log(`Entry ${index + 1}:`);
+  //     console.log(`- Date: ${entry.date}`);
+  //     console.log(`- Email: ${entry.email}`);
+  //     console.log(`- User ID: ${entry.userid}`);
+
+  //     // Display address info
+  //     console.log("- Address Info:");
+  //     console.log(`  - Name: ${entry.addressInfo.name}`);
+  //     console.log(`  - Address: ${entry.addressInfo.address}`);
+  //     console.log(`  - Pincode: ${entry.addressInfo.pincode}`);
+  //     console.log(`  - Phone Number: ${entry.addressInfo.phoneNumber}`);
+
+  //     // Display cart items
+  //     console.log("- Cart Items:");
+  //     entry.cartItems.forEach((item, itemIndex) => {
+  //       console.log(`  Item ${itemIndex + 1}:`);
+  //       console.log(`    - Date: ${item.date}`);
+  //       console.log(`    - Description: ${item.description}`);
+  //       console.log(`    - Price: ${item.price}`);
+  //       console.log(`    - Image URL: ${item.imageUrl}`);
+  //       console.log(`    - Category: ${item.category}`);
+  //     });
+  //   });
+
+  // const useremail = JSON.parse(localStorage.getItem("user"));
+
+  // const phoneNumber = localStorage.getItem("rzp_checkout_user_id");
+  // const paymentId = localStorage.getItem("rzp_checkout_anon_id");
+  // const context = useContext(Mycontext);
+
+  // const { mode, product, edithandel, UpdateProduct, deleteProduct, order } =context;
+
+  console.log(order);
   let [isOpen, setIsOpen] = useState(false);
 
   function closeModal() {
@@ -66,6 +114,7 @@ function DashboardTab() {
 
             {/* product  1st table update deatails*/}
             {/* inside the TabPanel 1 table  */}
+
             <TabPanel>
               <div className="  px-4 md:px-0 mb-16">
                 <h1
@@ -236,7 +285,7 @@ function DashboardTab() {
               </div>
             </TabPanel>
 
-            {/* 2nd table  */}
+            {/* 2nd  order table  */}
 
             <TabPanel>
               <div className="relative overflow-x-auto mb-16">
@@ -246,16 +295,10 @@ function DashboardTab() {
                 >
                   Order Details
                 </h1>
-                {/* {order && order.map((allorder, orderIndex) => {
-      return ( */}
+                {/* {order && order.map((entry, index) => {
+                  return ( */}
                 <table className="w-full text-sm text-left text-gray-900 dark:text-gray-700">
-                  <thead
-                    className="text-xs text-black uppercase bg-gray-200"
-                    style={{
-                      backgroundColor: mode === "dark" ? "rgb(46 49 55)" : "",
-                      color: mode === "dark" ? "white" : "",
-                    }}
-                  >
+                  <thead className="text-xs text-black uppercase bg-gray-200">
                     <tr>
                       <th scope="col" className="px-6 py-3">
                         S.No.
@@ -295,145 +338,61 @@ function DashboardTab() {
                       </th>
                     </tr>
                   </thead>
-
-                  {order
-                    .filter((obj) => obj.userid == userid)
-                    .map((order, i) => {
-                      const { email } = order;
-                      return (
-                        <tbody key={i}>
-                          {order.cartItems.map((item, itemIndex) => {
-                            const {
-                              title,
-                              imageUrl,
-                              price,
-                              category,
-
-                              name,
-                              address,
-                              date,
-                              pincode,
-                            } = item;
-                            return (
-                              <tr
-                                key={itemIndex}
-                                className="bg-gray-50 border-b dark:border-gray-700"
-                                style={{
-                                  backgroundColor:
-                                    mode === "dark" ? "rgb(46 49 55)" : "",
-                                  color: mode === "dark" ? "white" : "",
-                                }}
-                              >
-                                <td
-                                  className="px-6 py-4"
-                                  style={{
-                                    color: mode === "dark" ? "white" : "",
-                                  }}
-                                >
-                                  {/* {orderIndex+itemIndex + 1}. */}
-                                  {itemIndex + 1}
-                                </td>
-                                <td
-                                  className="px-6 py-4"
-                                  style={{
-                                    color: mode === "dark" ? "white" : "",
-                                  }}
-                                >
-                                  {paymentId}
-                                </td>
-                                <th
-                                  scope="row"
-                                  className="px-6 py-4 font-medium whitespace-nowrap"
-                                >
-                                  <img
-                                    className="w-16"
-                                    src={imageUrl}
-                                    alt="Product"
-                                  />
-                                </th>
-                                <td
-                                  className="px-6 py-4"
-                                  style={{
-                                    color: mode === "dark" ? "white" : "",
-                                  }}
-                                >
-                                  {title}
-                                </td>
-                                <td
-                                  className="px-6 py-4"
-                                  style={{
-                                    color: mode === "dark" ? "white" : "",
-                                  }}
-                                >
-                                  ₹{price}
-                                </td>
-                                <td
-                                  className="px-6 py-4"
-                                  style={{
-                                    color: mode === "dark" ? "white" : "",
-                                  }}
-                                >
-                                  {category}
-                                </td>
-                                <td
-                                  className="px-6 py-4"
-                                  style={{
-                                    color: mode === "dark" ? "white" : "",
-                                  }}
-                                >
-                                  {order.addressInfo.name}
-                                </td>
-                                <td
-                                  className="px-6 py-4"
-                                  style={{
-                                    color: mode === "dark" ? "white" : "",
-                                  }}
-                                >
-                                  {order.addressInfo.address}
-                                </td>
-                                <td
-                                  className="px-6 py-4"
-                                  style={{
-                                    color: mode === "dark" ? "white" : "",
-                                  }}
-                                >
-                                  {order.addressInfo.pincode}
-                                </td>
-                                <td
-                                  className="px-6 py-4"
-                                  style={{
-                                    color: mode === "dark" ? "white" : "",
-                                  }}
-                                >
-                                  {order.addressInfo.phoneNumber}
-                                </td>
-                                <td
-                                  className="px-6 py-4"
-                                  style={{
-                                    color: mode === "dark" ? "white" : "",
-                                  }}
-                                >
-                                  {email}
-                                </td>
-                                <td
-                                  className="px-6 py-4"
-                                  style={{
-                                    color: mode === "dark" ? "white" : "",
-                                  }}
-                                >
-                                  {date}
-                                </td>
-                              </tr>
-                            );
-                          })}
-                        </tbody>
-                      );
-                    })}
+                  <tbody>
+                    {order &&
+                      order.map((entry, index) =>
+                        entry.cartItems.map((item, itemIndex) => {
+                          const { title, price, category, imageUrl, date } =
+                            item;
+                          return (
+                            <tr
+                              key={index}
+                              className="bg-gray-50 border-b dark:border-gray-700"
+                              style={{
+                                backgroundColor:
+                                  mode === "dark" ? "rgb(46 49 55)" : "",
+                                color: mode === "dark" ? "white" : "",
+                              }}
+                            >
+                              <td className="px-6 py-4">{index + 1}</td>
+                              <td className="px-6 py-4">{paymentId}</td>
+                              <td className="px-6 py-4">
+                                <img
+                                  className="w-16"
+                                  src={imageUrl}
+                                  alt="Product"
+                                />
+                              </td>
+                              <td className="px-6 py-4">{title}</td>
+                              <td className="px-6 py-4">₹{price}</td>
+                              <td className="px-6 py-4">{category}</td>
+                              <td className="px-6 py-4">
+                                {entry.addressInfo.name}
+                              </td>
+                              <td className="px-6 py-4">
+                                {entry.addressInfo.address}
+                              </td>
+                              <td className="px-6 py-4">
+                                {entry.addressInfo.pincode}
+                              </td>
+                              <td className="px-6 py-4">
+                                {entry.addressInfo.phoneNumber}
+                              </td>
+                              <td className="px-6 py-4">{entry.email}</td>
+                              <td className="px-6 py-4">{date}</td>
+                            </tr>
+                          );
+                        })
+                      )}
+                  </tbody>
                 </table>
+
+                {/* //   );
+                // })} */}
               </div>
             </TabPanel>
 
-            {/* 3rd table  */}
+            {/* 3rd user Detail table  */}
             <TabPanel>
               {/* <User addressInfo={addressInfo} setAddressInfo={setAddressInfo} setLoading={setLoading} /> */}
               <div className="relative overflow-x-auto mb-10">
@@ -443,9 +402,10 @@ function DashboardTab() {
                 >
                   User Details
                 </h1>
-                <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+
+                <table className="w-full text-sm text-left  text-gray-700">
                   <thead
-                    className="text-xs text-black uppercase bg-gray-200 "
+                    className="text-xs text-black uppercase bg-gray-200"
                     style={{
                       backgroundColor: mode === "dark" ? "rgb(46 49 55)" : "",
                       color: mode === "dark" ? "white" : "",
@@ -455,7 +415,6 @@ function DashboardTab() {
                       <th scope="col" className="px-6 py-3">
                         S.No
                       </th>
-
                       <th scope="col" className="px-6 py-3">
                         Name
                       </th>
@@ -476,85 +435,34 @@ function DashboardTab() {
                       </th>
                     </tr>
                   </thead>
-                  {/* 3rd table user deatil update */}
-                  {order
-                    .filter((obj) => obj.userid == userid)
-                    .map((order, i) => {
-                      const { address, date, name, pincode, email } = order;
-                      return (
-                        <tbody key={i}>
-                          {/* {order.map((item, itemIndex) => { */}
-
-                          <tr
-                            className="bg-gray-50 border-b  dark:border-gray-700"
-                            style={{
-                              backgroundColor:
-                                mode === "dark" ? "rgb(46 49 55)" : "",
-                              color: mode === "dark" ? "white" : "",
-                            }}
-                          >
-                            <td
-                              className="px-6 py-4 text-black "
-                              style={{
-                                color: mode === "dark" ? "white" : "",
-                              }}
-                            >
-                              {i + 1}
-                            </td>
-                            <td
-                              className="px-6 py-4 text-black "
-                              style={{
-                                color: mode === "dark" ? "white" : "",
-                              }}
-                            >
-                              {order.addressInfo.name}
-                            </td>
-                            <td
-                              className="px-6 py-4 text-black "
-                              style={{
-                                color: mode === "dark" ? "white" : "",
-                              }}
-                            >
-                              {order.addressInfo.address}
-                            </td>
-                            <td
-                              className="px-6 py-4 text-black "
-                              style={{
-                                color: mode === "dark" ? "white" : "",
-                              }}
-                            >
-                              {order.addressInfo.pincode}
-                            </td>
-                            <td
-                              className="px-6 py-4 text-black "
-                              style={{
-                                color: mode === "dark" ? "white" : "",
-                              }}
-                            >
-                              {order.addressInfo.phoneNumber}
-                            </td>
-                            <td
-                              className="px-6 py-4 text-black "
-                              style={{
-                                color: mode === "dark" ? "white" : "",
-                              }}
-                            >
-                              {email}
-                            </td>
-                            <td
-                              className="px-6 py-4 text-black "
-                              style={{
-                                color: mode === "dark" ? "white" : "",
-                              }}
-                            >
-                              {date}
-                            </td>
-                          </tr>
-
-                          {/* })} */}
-                        </tbody>
-                      );
-                    })}
+                  <tbody>
+                    {order &&
+                      order.map((user, i) => (
+                        <tr
+                          key={i}
+                          className="bg-gray-330 border-b dark:border-gray-700"
+                          style={{
+                            backgroundColor:
+                              mode === "dark" ? "rgb(46 49 55)" : "",
+                            color: mode === "dark" ? "white" : "",
+                          }}
+                        >
+                          <td className="px-6 py-4">{i + 1}</td>
+                          <td className="px-6 py-4">{user.addressInfo.name}</td>
+                          <td className="px-6 py-4">
+                            {user.addressInfo.address}
+                          </td>
+                          <td className="px-6 py-4">
+                            {user.addressInfo.pincode}
+                          </td>
+                          <td className="px-6 py-4">
+                            {user.addressInfo.phoneNumber}
+                          </td>
+                          <td className="px-6 py-4">{user.email}</td>
+                          <td className="px-6 py-4">{user.date}</td>
+                        </tr>
+                      ))}
+                  </tbody>
                 </table>
               </div>
             </TabPanel>
